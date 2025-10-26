@@ -1,0 +1,168 @@
+/* Aanmelden style*/
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;margin:0;background:#f8f9fa;font-size:18px}
+.container{max-width:900px;margin:0 auto;padding:1rem}
+header{background:#fff;border-bottom:1px solid #e5e7eb}
+header .container{display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:.75rem;overflow:hidden}
+.card img{width:100%;display:block}
+.card .p{padding:.75rem}
+.input{width:100%;padding:.8rem 1rem;border:1px solid #d1d5db;border-radius:.5rem;background:#fff;font-size:1rem}
+.btn{padding:.75rem 1.1rem;border:1px solid #d1d5db;background:#fff;border-radius:.5rem;cursor:pointer;font-size:1rem}
+.btn.primary{background:#dc3545;border-color:#dc3545;color:#fff}
+.btn.block{display:block;width:100%}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+label{font-size:.9rem;margin:.35rem 0 .25rem;display:block}
+form{background:#fff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem}
+.small{font-size:.85rem;color:#6b7280}
+a{color:#dc3545;text-decoration:none}
+a:hover{text-decoration:underline}
+.auth-card{max-width:420px;margin:5vh auto;background:#fff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem}
+.tabs{display:flex;gap:.5rem;margin-bottom:.75rem}
+.tab{flex:1;text-align:center;padding:.5rem;border:1px solid #e5e7eb;border-radius:.5rem;cursor:pointer;background:#f6f6f6}
+.tab.active{background:#fff;border-bottom-color:#fff;font-weight:600}
+.hidden{display:none !important}
+.badge{display:inline-block;background:#fff;border:1px solid #e5e7eb;border-radius:999px;padding:.15rem .5rem;font-size:.8rem}
+
+/* Homepage style*/
+:root{
+  --p-brand:#e60023;
+  --p-border:#e5e7eb;
+  --p-muted:#6b7280;
+  --p-bg:#f6f7f8;
+}
+
+/* Header */
+.p-header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--p-border)}
+.p-bar{max-width:1200px;margin:0 auto;display:flex;gap:1rem;align-items:center;padding:.9rem 1rem}
+.p-brand{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.125rem}
+.p-dot{width:28px;height:28px;border-radius:50%;background:var(--p-brand);display:none}
+.p-actions{display:flex;gap:.5rem;align-items:center}
+.p-search{flex:1;position:relative}
+.p-search input{width:100%;border:1px solid var(--p-border);background:#f1f3f5;border-radius:28px;padding:.7rem 1rem .7rem 2.6rem;font-size:1rem}
+.p-search-icon{position:absolute;left:.75rem;top:.68rem;opacity:.7}
+
+/* Chips */
+.p-chips{max-width:1200px;margin:0 auto;padding:.8rem 1rem;display:flex;gap:1rem;overflow:auto;background:#fff;border-top:1px solid #fff}
+.p-chip{background:#fff;border:1px solid var(--p-border);padding:.6rem 1.15rem;border-radius:999px;white-space:nowrap;font-size:1.05rem;cursor:pointer}
+.p-chip.active{background:var(--p-brand);border-color:var(--p-brand);color:#fff}
+
+/* Masonry */
+.p-masonry{max-width:1200px;margin:0 auto;padding:1rem .75rem;column-gap:1rem;background:var(--p-bg)}
+@media (min-width:520px){ .p-masonry{column-count:2} }
+@media (min-width:900px){ .p-masonry{column-count:3} }
+@media (min-width:1200px){ .p-masonry{column-count:4} }
+
+/* Pins */
+.p-pin{display:inline-block;width:100%;margin:0 0 1rem;background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--p-border)}
+.p-media{position:relative;line-height:0;display:block}
+.p-pin img{width:100%;height:auto;display:block}
+.p-floating{position:absolute;right:.5rem;bottom:.5rem;display:flex;gap:.4rem}
+.p-icon-btn{border:none;background:#fff;border-radius:24px;padding:.4rem .6rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.p-save{background:var(--p-brand);color:#fff}
+.p-body{padding:1rem 1.05rem}
+.p-title{font-weight:600;margin:0 0 .2rem 0;font-size:1.05rem}
+.p-meta{color:var(--p-muted);font-size:.95rem}
+
+/* Modal/backdrop */
+.p-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
+.p-modal{width:min(560px,92vw);background:#fff;border:1px solid var(--p-border);border-radius:16px;padding:1rem}
+.p-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.p-full{grid-column:1/-1}
+.p-modal-footer{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.75rem}
+.show{display:flex}
+
+/* Kleine utility */
+.small{font-size:.85rem;color:#6b7280}
+
+
+/* Add-menu dropdown anchored to the primary button */
+.p-add-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.p-dropdown {
+  position: absolute;
+  top: 46px; /* aligns under the 'Nieuw recept' button */
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--p-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 60;
+}
+
+.p-dropdown-item {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.p-dropdown-item:hover {
+  background: var(--p-bg);
+}
+
+
+textarea.input {
+  font-family: inherit;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+
+/* Make the modal a flex column and cap its height to the viewport */
+.p-modal {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;          /* cap height so it fits on screen */
+}
+
+/* Let the form grid be the scrollable area */
+.p-form-grid {
+  flex: 1 1 auto;            /* take remaining vertical space */
+  min-height: 0;             /* allow shrinking inside flex parent */
+  overflow: auto;            /* <-- vertical scroll lives here */
+  padding-right: .25rem;     /* tiny space so scrollbar doesn't overlay text */
+}
+
+/* (Optional) slightly better on mobile browsers that support dynamic viewport */
+@supports (height: 1dvh) {
+  .p-modal { max-height: calc(100dvh - 6vh); }
+}
+
+
+body.no-scroll { overflow: hidden; }  /* so page behind stops scrolling when modal opens */
+
+
+/* Card action row: keep buttons visible always */
+.p-actions-row {
+  display: flex;
+  gap: .5rem;
+  margin-top: .5rem;
+  flex-wrap: wrap;
+}
+
+/* Detail modal content structure */
+.p-detail-header { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: .75rem; }
+.p-detail-media img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.p-detail-meta { color: var(--p-muted); margin: .25rem 0 .5rem 0; }
+.p-detail-sections { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+.p-detail-section h3 { margin: .25rem 0 .25rem 0; font-size: 1rem; }
+.p-detail-list { margin: .25rem 0 0 1rem; }
+.p-detail-notes { white-space: pre-wrap; margin-top: .25rem; }
+
+/* Make detail modal internally scrollable (title/footer fixed) */
+#detailModal { display: flex; flex-direction: column; max-height: 90vh; }
+#detailModal .p-detail-content { flex: 1 1 auto; min-height: 0; overflow: auto; padding-right: .25rem; }
+
+/* Ensure modals float above sticky header */
+.p-backdrop { z-index: 100; }

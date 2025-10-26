@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      # Mount data directory for persistent database storage
+      - recipe-data:/website/data
+    environment:
+      - NODE_ENV=production
+      - SESSION_SECRET=change-this-in-production-please
+      - PORT=80
+
+volumes:
+  # Named volume for persistent data storage
+  # Data will persist even when container is removed
+  recipe-data:
+    driver: local

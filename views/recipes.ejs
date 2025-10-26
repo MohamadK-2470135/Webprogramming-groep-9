@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<header class="p-header">
+  <div class="p-bar">
+    <div class="p-brand"><span class="p-dot"></span> SeMoRecepts</div>
+    <div class="p-search">
+      <input id="q" type="search" placeholder="Zoek je eigen recepten…" autocomplete="off"/>
+    </div>
+    <div class="p-actions">
+      <span id="hello" class="small"><%= user.email %></span>
+      <button class="btn" id="logoutBtn">Uitloggen</button>
+      <!-- Drop down menu for recept -->
+      <div class="p-add-menu">
+          <button class="btn primary" id="addBtn" aria-haspopup="true" aria-expanded="false"> Nieuw recept ▾ </button>
+          <div id="addMenu" class="p-dropdown hidden" role="menu" aria-labelledby="addBtn">
+            <button class="p-dropdown-item" id="btnAddOwn" role="menuitem">Eigen recept</button>
+            <button class="p-dropdown-item" id="btnScrapUrl" role="menuitem">Scrap een recept</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-chips" id="chips">
+    <button class="p-chip active" type="button">Alle</button>
+    <button class="p-chip" type="button">Ontbijt</button>
+    <button class="p-chip" type="button">Lunch</button>
+    <button class="p-chip" type="button">Diner</button>
+    <button class="p-chip" type="button">Vegan</button>
+    <button class="p-chip" type="button">Dessert</button>
+  </div>
+</header>
+
+<main class="p-masonry" id="grid" aria-live="polite"></main>
+
+<!-- Modal -->
+<div id="backdrop" class="p-backdrop">
+  <div class="p-modal">
+    <h2>Nieuw recept</h2>
+    <div class="p-form-grid">
+      <div>
+        <label class="small">Titel</label>
+        <input id="title" class="input" required/>
+      </div>
+      <div>
+        <label class="small">Tijd</label>
+        <input id="time" class="input" placeholder="20 min"/>
+      </div>
+      <div>
+        <label class="small">Porties</label>
+        <input id="servings" class="input" type="number" min="1" value="2"/>
+      </div>
+
+      <!-- Cat kiezer -->
+      <div>
+        <label class="small" for="tag">Categorie</label>
+        <select id="tag" class="input">
+          <option value="">Geen categorie</option>
+          <option>Ontbijt</option>
+          <option>Lunch</option>
+          <option>Diner</option>
+          <option>Vegan</option>
+          <option>Dessert</option>
+        </select>
+      </div>
+
+      <div class="p-full">
+        <label class="small">Bron</label>
+        <input id="source" class="input" type="url"/>
+      </div>
+      <div class="p-full">
+        <label class="small">Afbeelding URL</label>
+        <input id="image" class="input" type="url"/>
+      </div>
+
+      <div class="p-full">
+        <label class="small" for="ingredients">Ingrediënten</label>
+        <textarea id="ingredients" class="input" rows="6" placeholder="- 2 eieren
+- 200 g bloem
+- 1 el olijfolie"></textarea>
+        <p class="small">Gebruik een <code>-</code> per ingrediënt, elk op een nieuwe regel.</p>
+      </div>
+
+      <div class="p-full">
+        <label class="small" for="steps">Stappen</label>
+        <textarea id="steps" class="input" rows="6" placeholder="1. Oven voorverwarmen op 180°C
+2. Eieren kloppen
+3. Bloem toevoegen"></textarea>
+        <p class="small">Nummer elke stap; één stap per regel.</p>
+      </div>
+
+      <div class="p-full">
+        <label class="small" for="notes">Notities</label>
+        <textarea id="notes" class="input" rows="4" placeholder="Opmerkingen, variaties, serveertips…"></textarea>
+      </div>
+
+    </div>
+    <div class="p-modal-footer">
+      <button class="btn" id="cancelBtn">Annuleren</button>
+      <button class="btn primary" id="saveBtn">Opslaan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scrap-from-URL Modal -->
+<div id="scrapBackdrop" class="p-backdrop">
+  <div class="p-modal">
+    <h2>Scrap recept van URL</h2>
+    <div class="p-form-grid">
+      <div class="p-full">
+        <label class="small" for="scrapUrl">Recept-URL</label>
+        <input id="scrapUrl" class="input" type="url" placeholder="https://voorbeeld.nl/mijn-recept" required />
+        <p class="small">De automatische scraper komt later. Voor nu kun je de URL alvast ingeven.</p>
+      </div>
+    </div>
+    <div class="p-modal-footer">
+      <button class="btn" id="scrapCancelBtn">Annuleren</button>
+      <button class="btn primary" id="scrapSaveBtn">Scrap</button>
+    </div>
+  </div>
+</div>
+
+<!-- Recipe Detail Modal -->
+<div id="detailBackdrop" class="p-backdrop">
+  <div class="p-modal" id="detailModal">
+    <!-- content injected by openRecipeDetail(...) -->
+  </div>
+</div>
+
+<script src="/js/recipes.js"></script>
+</body>
+</html>

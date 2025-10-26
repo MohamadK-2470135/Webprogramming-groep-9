@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+  <div class="auth-card">
+    <div class="tabs">
+      <button id="tab-login" class="tab active" type="button">Inloggen</button>
+      <button id="tab-register" class="tab" type="button">Registreren</button>
+    </div>
+
+    <!-- Inloggen -->
+    <form id="loginForm">
+      <label for="loginEmail">E-mail</label>
+      <input id="loginEmail" class="input" type="email" placeholder="jij@example.com" required/>
+      <label for="loginPass">Wachtwoord</label>
+      <input id="loginPass" class="input" type="password" placeholder="••••••••" required/>
+      <div style="height:.5rem"></div>
+      <button class="btn primary block" type="submit">Inloggen</button>
+      <p class="small">Nog geen account? <a href="#" id="toRegister">Registreren</a></p>
+      <p class="small" id="loginMsg"></p>
+    </form>
+
+    <!-- Registreren -->
+    <form id="registerForm" class="hidden">
+      <label for="regName">Naam</label>
+      <input id="regName" class="input" type="text" placeholder="Jouw naam" required/>
+      <label for="regEmail">E-mail</label>
+      <input id="regEmail" class="input" type="email" placeholder="jij@example.com" required/>
+      <label for="regPass">Wachtwoord</label>
+      <input id="regPass" class="input" type="password" placeholder="Kies een wachtwoord" required minlength="4"/>
+      <div style="height:.5rem"></div>
+      <button class="btn primary block" type="submit">Account aanmaken</button>
+      <p class="small">Al een account? <a href="#" id="toLogin">Inloggen</a></p>
+      <p class="small" id="registerMsg"></p>
+    </form>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>
