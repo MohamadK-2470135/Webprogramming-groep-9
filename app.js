@@ -3,6 +3,8 @@ import session from "express-session";
 import { InitializeDatabase } from "./db.js";
 import authRoutes from "./routes/auth.js";
 import recipeRoutes from "./routes/recipes.js";
+import favoriteRoutes from "./routes/favorites.js";
+import { Recipe } from "./models/Recipe.js";
 
 /**
  * Main Express Application
@@ -11,6 +13,8 @@ import recipeRoutes from "./routes/recipes.js";
  * This application provides:
  * - User authentication (register, login, logout)
  * - Recipe management (CRUD operations)
+ * - Favorite recipes functionality
+ * - Cook mode for step-by-step cooking
  * - Server-side session management
  * - RESTful API architecture
  */
@@ -95,6 +99,9 @@ app.use("/api/auth", authRoutes);
 // Recipe routes: /api/recipes/*
 app.use("/api/recipes", recipeRoutes);
 
+// Favorite routes: /api/favorites/*
+app.use("/api/favorites", favoriteRoutes);
+
 /**
  * FRONTEND PAGE ROUTES
  * Serve HTML pages using EJS templates
@@ -134,6 +141,31 @@ app.get("/recipes", (req, res) => {
       email: req.session.email
     },
     title: "SeMoRecepts – Mijn recepten"
+  });
+});
+
+// Cook mode page (requires authentication)
+app.get("/recipes/:id/cook", (req, res) => {
+  // If not logged in, redirect to login page
+  if (!req.session.userId) {
+    return res.redirect("/login");
+  }
+
+  // Get recipe from database
+  const recipe = Recipe.findById(req.params.id, req.session.userId);
+
+  if (!recipe) {
+    return res.status(404).send("Recipe not found");
+  }
+
+  res.render("cook", {
+    user: {
+      id: req.session.userId,
+      name: req.session.name,
+      email: req.session.email
+    },
+    recipe: recipe,
+    title: `SeMoRecepts – ${recipe.title}`
   });
 });
 

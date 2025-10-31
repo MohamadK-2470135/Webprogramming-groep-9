@@ -16,6 +16,7 @@ const db = new Database("./data/database.db", { verbose: console.log });
  * This function creates:
  * - users table: stores user authentication data
  * - recipes table: stores recipe information with JSON fields for ingredients/steps
+ * - favorites table: stores user's favorited recipes
  * - sessions table: stores express-session data
  */
 export function InitializeDatabase() {
@@ -66,6 +67,21 @@ export function InitializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_recipes_user_id ON recipes(user_id);
     CREATE INDEX IF NOT EXISTS idx_recipes_category ON recipes(category);
     CREATE INDEX IF NOT EXISTS idx_recipes_created_at ON recipes(created_at DESC);
+
+    -- Favorites table: stores user's favorited recipes
+    CREATE TABLE IF NOT EXISTS favorites (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      recipe_id TEXT NOT NULL,
+      created_at INTEGER NOT NULL DEFAULT (unixepoch()),
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+      UNIQUE(user_id, recipe_id)
+    ) STRICT;
+
+    -- Indexes for efficient favorite queries
+    CREATE INDEX IF NOT EXISTS idx_favorites_user_id ON favorites(user_id);
+    CREATE INDEX IF NOT EXISTS idx_favorites_recipe_id ON favorites(recipe_id);
 
     -- Sessions table: stores express-session data
     CREATE TABLE IF NOT EXISTS sessions (

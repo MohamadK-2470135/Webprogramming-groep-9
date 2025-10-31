@@ -58,9 +58,10 @@ export const getRecipeById = async (req, res) => {
 /**
  * Create a new recipe
  * POST /api/recipes
+ * ONLY TITLE IS MANDATORY - all other fields are optional
  */
 export const createRecipe = [
-  // Validation middleware
+  // Validation middleware - ONLY title is required
   body("title")
     .trim()
     .notEmpty()
@@ -69,40 +70,42 @@ export const createRecipe = [
     .withMessage("Title must be less than 200 characters"),
   
   body("time")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim(),
   
   body("servings")
-    .optional()
+    .optional({ checkFalsy: true })
     .isInt({ min: 1, max: 100 })
     .withMessage("Servings must be between 1 and 100"),
   
   body("category")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim(),
   
   body("source_url")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim()
     .isURL()
     .withMessage("Source must be a valid URL"),
   
   body("image_url")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim()
     .isURL()
     .withMessage("Image URL must be a valid URL"),
   
   body("ingredients")
+    .optional()
     .isArray()
     .withMessage("Ingredients must be an array"),
   
   body("steps")
+    .optional()
     .isArray()
     .withMessage("Steps must be an array"),
   
   body("notes")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim(),
   
   // Controller logic
@@ -118,15 +121,15 @@ export const createRecipe = [
     try {
       const recipeData = {
         title: req.body.title,
-        time: req.body.time,
-        servings: req.body.servings,
-        category: req.body.category,
-        source_url: req.body.source_url,
-        image_url: req.body.image_url,
-        image_path: req.body.image_path,
-        ingredients: req.body.ingredients,
-        steps: req.body.steps,
-        notes: req.body.notes,
+        time: req.body.time || null,
+        servings: req.body.servings || 2,
+        category: req.body.category || null,
+        source_url: req.body.source_url || null,
+        image_url: req.body.image_url || null,
+        image_path: req.body.image_path || null,
+        ingredients: req.body.ingredients || [],
+        steps: req.body.steps || [],
+        notes: req.body.notes || null,
         is_scraped: req.body.is_scraped || false
       };
 
@@ -152,9 +155,10 @@ export const createRecipe = [
 /**
  * Update an existing recipe
  * PUT /api/recipes/:id
+ * ONLY TITLE IS MANDATORY - all other fields are optional
  */
 export const updateRecipe = [
-  // Validation middleware (same as create)
+  // Validation middleware - ONLY title is required
   body("title")
     .trim()
     .notEmpty()
@@ -162,13 +166,44 @@ export const updateRecipe = [
     .isLength({ max: 200 })
     .withMessage("Title must be less than 200 characters"),
   
+  body("time")
+    .optional({ checkFalsy: true })
+    .trim(),
+  
+  body("servings")
+    .optional({ checkFalsy: true })
+    .isInt({ min: 1, max: 100 })
+    .withMessage("Servings must be between 1 and 100"),
+  
+  body("category")
+    .optional({ checkFalsy: true })
+    .trim(),
+  
+  body("source_url")
+    .optional({ checkFalsy: true })
+    .trim()
+    .isURL()
+    .withMessage("Source must be a valid URL"),
+  
+  body("image_url")
+    .optional({ checkFalsy: true })
+    .trim()
+    .isURL()
+    .withMessage("Image URL must be a valid URL"),
+  
   body("ingredients")
+    .optional()
     .isArray()
     .withMessage("Ingredients must be an array"),
   
   body("steps")
+    .optional()
     .isArray()
     .withMessage("Steps must be an array"),
+  
+  body("notes")
+    .optional({ checkFalsy: true })
+    .trim(),
   
   // Controller logic
   async (req, res) => {
@@ -183,15 +218,15 @@ export const updateRecipe = [
     try {
       const recipeData = {
         title: req.body.title,
-        time: req.body.time,
-        servings: req.body.servings,
-        category: req.body.category,
-        source_url: req.body.source_url,
-        image_url: req.body.image_url,
-        image_path: req.body.image_path,
-        ingredients: req.body.ingredients,
-        steps: req.body.steps,
-        notes: req.body.notes
+        time: req.body.time || null,
+        servings: req.body.servings || 2,
+        category: req.body.category || null,
+        source_url: req.body.source_url || null,
+        image_url: req.body.image_url || null,
+        image_path: req.body.image_path || null,
+        ingredients: req.body.ingredients || [],
+        steps: req.body.steps || [],
+        notes: req.body.notes || null
       };
 
       const updated = Recipe.update(req.params.id, req.session.userId, recipeData);

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<header class="p-header">
+  <div class="p-bar">
+    <div class="p-brand"><span class="p-dot"></span> SeMoRecepts</div>
+    <div class="p-actions">
+      <span class="small"><%= user.email %></span>
+      <a href="/recipes" class="btn">← Terug naar recepten</a>
+    </div>
+  </div>
+</header>
+
+<!-- Cook Mode Container -->
+<div class="cook-container">
+  <div class="cook-content" id="cookContent">
+    <!-- Initial view: Recipe overview -->
+    <div id="cookOverview" class="cook-overview">
+      <h1 class="cook-title"><%= recipe.title %></h1>
+      
+      <% if (recipe.image_url) { %>
+      <div class="cook-image">
+        <img src="<%= recipe.image_url %>" alt="<%= recipe.title %>" onerror="this.parentElement.remove()">
+      </div>
+      <% } %>
+
+      <div class="cook-meta">
+        <% if (recipe.time) { %>
+        <span>⏱️ <%= recipe.time %></span>
+        <% } %>
+        <% if (recipe.servings) { %>
+        <span>👥 <%= recipe.servings %> porties</span>
+        <% } %>
+        <% if (recipe.category) { %>
+        <span>🏷️ <%= recipe.category %></span>
+        <% } %>
+      </div>
+
+      <div class="cook-section">
+        <h2>Ingrediënten</h2>
+        <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
+        <ul class="cook-ingredients-list">
+          <% recipe.ingredients.forEach(function(ingredient) { %>
+          <li><%= ingredient %></li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p class="cook-empty">Geen ingrediënten toegevoegd.</p>
+        <% } %>
+      </div>
+
+      <% if (recipe.notes) { %>
+      <div class="cook-section">
+        <h3>Notities</h3>
+        <p class="cook-notes"><%= recipe.notes %></p>
+      </div>
+      <% } %>
+
+      <button class="btn primary cook-start-btn" id="startCookingBtn">
+        🍳 Start met koken
+      </button>
+    </div>
+
+    <!-- Step-by-step view (hidden initially) -->
+    <div id="cookSteps" class="cook-steps hidden">
+      <div class="cook-step-header">
+        <h2 class="cook-step-title"><%= recipe.title %></h2>
+        <button class="btn" id="exitCookBtn">Stoppen</button>
+      </div>
+
+      <div class="cook-step-content">
+        <div class="cook-step-number" id="stepNumber">Stap 1</div>
+        <div class="cook-step-text" id="stepText"></div>
+      </div>
+
+      <div class="cook-step-progress">
+        <div class="cook-progress-bar">
+          <div class="cook-progress-fill" id="progressFill"></div>
+        </div>
+        <div class="cook-progress-text" id="progressText">1 / 1</div>
+      </div>
+
+      <div class="cook-step-nav">
+        <button class="btn cook-nav-btn" id="prevStepBtn" disabled>
+          ← Vorige
+        </button>
+        <button class="btn primary cook-nav-btn" id="nextStepBtn">
+          Volgende →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pass recipe data to JavaScript -->
+<script>
+  window.recipeData = <%- JSON.stringify(recipe) %>;
+</script>
+<script src="/js/cook.js"></script>
+
+</body>
+</html>
